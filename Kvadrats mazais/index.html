@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Square</title>
+    <style>
+       body {
+            background-image: url('bg.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        #square {
+            position: absolute;
+            top: 100px;
+            width: 300px;
+            height: 300px;
+            background-color: #3498db;
+            transition: transform 0.5s, background-color 0.5s, top 0.5s, left 0.5s;
+            position: absolute;
+        }
+
+        #colorButton {
+            position: absolute;
+            top: 20px;
+            right: 10;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="square"></div>
+    <button id="colorButton" onclick="changeSquare()">Click me (0)</button>
+
+    <script>
+        const square = document.getElementById('square');
+        const colorButton = document.getElementById('colorButton');
+
+        let clickCount = 0;
+
+        function changeSquare() {
+            // Generate random RGB values for the background color
+            const randomColor = `rgb(${getRandomNumber()}, ${getRandomNumber()}, ${getRandomNumber()})`;
+
+            // Generate a random rotation angle between 0 and 360 degrees
+            const randomRotation = Math.random() * 360;
+
+            // Generate random top and left positions within the window
+            const windowHeight = window.innerHeight - square.clientHeight;
+            const windowWidth = window.innerWidth - square.clientWidth;
+            const randomTop = Math.random() * windowHeight;
+            const randomLeft = Math.random() * windowWidth;
+
+            // Apply the random color, rotation, and position to the square
+            square.style.backgroundColor = randomColor;
+            square.style.transform = `rotate(${randomRotation}deg)`;
+            square.style.top = randomTop + 'px';
+            square.style.left = randomLeft + 'px';
+
+            // Increment the click count and update the button text
+            clickCount++;
+            colorButton.textContent = `Click me (${clickCount})`;
+        }
+
+        // Function to generate a random number between 0 and 255
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 256);
+        }
+    </script>
+</body>
+</html>
